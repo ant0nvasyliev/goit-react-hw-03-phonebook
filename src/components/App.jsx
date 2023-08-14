@@ -65,6 +65,42 @@ export class App extends Component {
     )
   }
 
+// отримуємо contactsData з localStorage.getItem('contacts')
+// парсимо їх JSON.parse(contactsData) та отримуємо parsedContactsData
+// якщо вони - (parsedContactsData) true, то записуємо їх в стейт - this.setState({ contacts: parsedContactsData })
+
+  componentDidMount() {
+    const contactsData = localStorage.getItem('contacts');
+    const parsedContactsData = JSON.parse(contactsData);
+    if (parsedContactsData) {
+      this.setState({ contacts: parsedContactsData });
+    }
+  }
+
+// якщо state не такий як prevState то зберігаємо в localStorage state у вигляді рядка JSON.stringify
+componentDidUpdate(prevProps, prevState) {
+  if (this.state.contacts !== prevState.contacts) {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getFilteredContacts();
